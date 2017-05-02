@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Bill Pay</string>
+    <string name="bill_list_intro">List of bills left to pay:</string>
+    <string name="add_bill">Enter info on new bill:</string>
+    <string name="details">Selected Bill Details</string>
+    <string name="bill_name">Bill name:</string>
+    <string name="date_due">Date due:</string>
+    <string name="save">Save</string>
+    <string name="total_bill_amount">Total bill amount:</string>
+    <string name="create_new_user">Create New User</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="password">password</string>
+</resources>
