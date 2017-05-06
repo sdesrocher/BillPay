@@ -15,7 +15,7 @@ import android.widget.EditText;
 public class DetailActivity extends AppCompatActivity{
 
     Button btnReturn;
-    EditText etName, etDueDate, etAmt;
+    EditText etName, etDueDate, etAmount, etAmountPer;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +27,16 @@ public class DetailActivity extends AppCompatActivity{
         //link variables to xml
         etName = (EditText) findViewById(R.id.editTextBillName);
         etDueDate = (EditText) findViewById(R.id.editTextDueDate);
-        etAmt = (EditText) findViewById(R.id.editTextAmount);
+        etAmount = (EditText) findViewById(R.id.editTextAmount);
+        etAmountPer = (EditText) findViewById(R.id.editTextAmountPer);
 
-        //take entried from each editText
+        //take entry from each editText
         etName.setText(bill.getName());
         etDueDate.setText(bill.getDueDate());
-        etAmt.setText(bill.getAmount());
+        etAmount.setText(bill.getAmount());
+        etAmountPer.setText(bill.getAmountPer());
 
-        //set button intent to return to main page
+        //set button intent to return to main page on button click
         btnReturn = (Button) findViewById(R.id.buttonReturn);
         btnReturn.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){

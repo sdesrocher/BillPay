@@ -18,8 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText etName, etDueDate, etAmt;
-    Button btnSave;
+    EditText etName, etDueDate, etAmountPer, etGetName, etGetDueDate, etGetAmount;
+    Button btnSave, btnReturn;
     BillFirebaseData billDataSource;
 
 
@@ -28,34 +28,70 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bill);
 
-        //link each variable to xml layout
-        etName = (EditText) findViewById(R.id.editTextBillName);
-        etDueDate = (EditText) findViewById(R.id.editTextDueDate);
-        etAmt = (EditText) findViewById(R.id.editTextAmount);
+        //link each variable to xml layout from numbers entered
+        etGetName = (EditText) findViewById(R.id.editTextGetName);
+        etGetDueDate = (EditText) findViewById(R.id.editTextGetDueDate);
+        etGetAmount = (EditText) findViewById(R.id.editTextGetAmount);
 
-        //connect with firebase
+        //link variables to display numbers at bottom of page
+        etName = (EditText) findViewById(R.id.editTextName);
+        etDueDate = (EditText) findViewById(R.id.editTextDueDate);
+        etAmountPer = (EditText) findViewById(R.id.editTextAmount);
+
+        //connect with FireBase
         billDataSource = new BillFirebaseData();
         DatabaseReference myBillDbRef = billDataSource.open(this);
+
 
         //set onclick for the save button after info entered
         btnSave = (Button) findViewById(R.id.buttonSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                //String getname = etGetName.getText().toString();
+
+
+                //link variables to display numbers
+                etName = (EditText) findViewById(R.id.editTextName);
+                etDueDate = (EditText) findViewById(R.id.editTextDueDate);
+                etAmountPer = (EditText) findViewById(R.id.editTextAmount);
+
+                //setting strings from Bill in AddActivity
+                etName.setText(etGetName.getText().toString());
+                etDueDate.setText(etGetDueDate.getText().toString());
+
+                //set name, duedate and amount to be passes to DataSource and create bill.
                 String name = etName.getText().toString();
                 String duedate = etDueDate.getText().toString();
-                String amount = etAmt.getText().toString();
-                billDataSource.createBill(name, duedate, amount);
+                //retrieve math from settings activity for amount per roommate.
 
+                etAmountPer.setText(etGetAmount.getText().toString());
+
+
+                billDataSource.createBill(name, duedate, amountper);
                 //set intent to send info entered to main activity screen
+                Intent mainActIntent = new Intent(view.getContext(), MainActivity.class);
+                finish();
+                startActivity(mainActIntent);
+
+
+        }
+
+        });
+
+        btnReturn = (Button) findViewById(R.id.buttonReturn);
+        btnReturn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+
+                //return to main activity when button click
                 Intent mainActIntent = new Intent(view.getContext(), MainActivity.class);
                 finish();
                 startActivity(mainActIntent);
 
                 Toast.makeText(getApplicationContext(), "Bill added, click on bill and hit 'Details' button to view all information.", Toast.LENGTH_LONG)
                         .show();
-            }
 
-        });
+            }
+        })
 
     }
 }

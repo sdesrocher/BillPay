@@ -39,11 +39,11 @@ public class BillAdapter extends ArrayAdapter<Bill> {
 
         TextView tvName = (TextView)view.findViewById(R.id.textViewName);
         TextView tvDueDate = (TextView) view.findViewById(R.id.textViewDueDate);
-        TextView tvAmount = (TextView) view.findViewById(R.id.textViewAmount);
+        TextView tvAmountPer = (TextView) view.findViewById(R.id.textViewAmountPer);
 
         tvName.setText(bill.getName());
         tvDueDate.setText(bill.getDueDate());
-        tvAmount.setText(bill.getAmount());
+        tvAmountPer.setText(bill.getAmountPer());
 
 
         return(view);
