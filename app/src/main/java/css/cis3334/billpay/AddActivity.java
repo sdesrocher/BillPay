@@ -34,9 +34,9 @@ public class AddActivity extends AppCompatActivity {
         etGetAmount = (EditText) findViewById(R.id.editTextGetAmount);
 
         //link variables to display numbers at bottom of page
-        etName = (EditText) findViewById(R.id.editTextName);
+        etName = (EditText) findViewById(R.id.editTextBillName);
         etDueDate = (EditText) findViewById(R.id.editTextDueDate);
-        etAmountPer = (EditText) findViewById(R.id.editTextAmount);
+        etAmountPer = (EditText) findViewById(R.id.editTextAmountPer);
 
         //connect with FireBase
         billDataSource = new BillFirebaseData();
@@ -51,21 +51,22 @@ public class AddActivity extends AppCompatActivity {
 
 
                 //link variables to display numbers
-                etName = (EditText) findViewById(R.id.editTextName);
+                etName = (EditText) findViewById(R.id.editTextBillName);
                 etDueDate = (EditText) findViewById(R.id.editTextDueDate);
-                etAmountPer = (EditText) findViewById(R.id.editTextAmount);
+                etAmountPer = (EditText) findViewById(R.id.editTextAmountPer);
+
 
                 //setting strings from Bill in AddActivity
                 etName.setText(etGetName.getText().toString());
                 etDueDate.setText(etGetDueDate.getText().toString());
+                etAmountPer.setText(etAmountPer.getText().toString());
 
                 //set name, duedate and amount to be passes to DataSource and create bill.
                 String name = etName.getText().toString();
                 String duedate = etDueDate.getText().toString();
                 //retrieve math from settings activity for amount per roommate.
 
-                etAmountPer.setText(etGetAmount.getText().toString());
-
+                String amountper = etAmountPer.getText().toString();
 
                 billDataSource.createBill(name, duedate, amountper);
                 //set intent to send info entered to main activity screen
@@ -91,7 +92,7 @@ public class AddActivity extends AppCompatActivity {
                         .show();
 
             }
-        })
+        });
 
     }
 }

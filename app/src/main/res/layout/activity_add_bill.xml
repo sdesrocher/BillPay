@@ -61,27 +61,17 @@
         android:layout_height="wrap_content"
         android:text="Return" />
 
-    <EditText
-        android:id="@+id/editTextName"
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="Bill amount due from each roommate:" />
 
     <EditText
-        android:id="@+id/editTextDueDate"
+        android:id="@+id/editTextAmountPer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="duedate" />
+        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="amount" />
 </LinearLayout>

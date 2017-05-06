@@ -38,23 +38,23 @@ public class SettingsActivity extends AppCompatActivity {
 
         //if statement to read spinner results and make division of total price by number of roommates. Set as etPriceResult and pass that to etAmount to be sent back.
         if (spinRoommate.getSelectedItem().toString()=="1"){
-            etPriceResult.setText(bill.getAmount);
+            //etPriceResult.setText(bill.getAmount);
 
 
         } else if (spinRoommate.getSelectedItem().toString()=="2"){
-            etPriceResult = (bill.getAmount / 2);
+            //etPriceResult = (bill.getAmount / 2);
 
         } else if (spinRoommate.getSelectedItem().toString()=="3"){
-            etPriceResult = (bill.getAmount / 3);
+            //etPriceResult = (bill.getAmount / 3);
 
         } else if (spinRoommate.getSelectedItem().toString()=="4"){
-            etPriceResult = (bill.getAmount / 4);
+            //etPriceResult = (bill.getAmount / 4);
 
         } else if (spinRoommate.getSelectedItem().toString()=="5"){
-            etPriceResult = (bill.getAmount / 5);
+            //etPriceResult = (bill.getAmount / 5);
 
         } else if (spinRoommate.getSelectedItem().toString()=="6"){
-            etPriceResult = (bill.getAmount / 6);
+            //etPriceResult = (bill.getAmount / 6);
 
         }
 
@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
     //set the new AmountPer
-    final etAmountPer = etAmountResult;
+    //final etAmountPer = etAmountResult;
 
     //set button intent to return to main page
      //   btnUpdate.setOnClickListener(new View.OnClickListener(){
