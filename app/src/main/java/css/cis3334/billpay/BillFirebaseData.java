@@ -44,8 +44,11 @@ public class BillFirebaseData {
             Log.d("CSS3334", "onAuthStateChanged - User is not signed in");
             Intent signInIntent = new Intent (activity, LoginActivity.class);
             activity.startActivity(signInIntent);
+
+        } else{
+            return user.getUid();
         }
-        return user.getUid();
+return null;
     }
 
     public Bill createBill(String name, String duedate, String amount){

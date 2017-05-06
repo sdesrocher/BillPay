@@ -8,14 +8,22 @@ package css.cis3334.billpay;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener{
 
     Button btnPaid, btnDetails;
     ListView lvBill;
@@ -45,16 +54,79 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
+        //firebase checking
+        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
+
+
+        //methods created:
         checkUserAuthenticated();
         setupFirebaseDataChange();
         setupListView();
         setupDetailButton();
         setupPaidButton();
 
+        //enter layout for navigation bar menu to be added on MainActivity
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        //nav_view
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    //creating the menu for settings and add new (top right corner)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.nav__drawer, menu);
+        return true;
+    }
+
+    //added with implementing onNavItemSel at top
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //Handle navigation view item clicks
+        int id = item.getItemId();
+
+        if (id == R.id.nav_settings){
+            //Handle settings action
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
+        }
+        else if (id==R.id.nav_new){
+            //Handle add new bill action
+            Intent intent = new Intent(this, AddActivity.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+
+
     private void checkUserAuthenticated() {
-        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
+       // mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
         mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -62,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // User is signed out
-                    Log.d("CSS3334","onAuthStateChanged - User NOT is signed in");
+                    Log.d("CSS3334","onAuthStateChanged - User NOT signed in");
                     Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(signInIntent);
                 }
@@ -126,8 +198,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MAIN", "onClick for Paid");
                 Log.d("MAIN", "Delete at position "+ positionSelected);
                 billDataSource.deleteBill(billList.get(positionSelected));
-                billAdapter.remove( billList.get(positionSelected));
+                billAdapter.remove(billList.get(positionSelected));
                 billAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(), "Bill has been taken off of list", Toast.LENGTH_LONG)
+                        .show();
             }
         });
     }
@@ -136,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         //initiate the authentication listener
         super.onStart();
+        //check if user is signed in and update
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
         mAuth.addAuthStateListener(mAuthListener); // update the listener on the users place
     }
 

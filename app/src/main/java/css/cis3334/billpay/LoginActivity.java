@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by sdesrocher on 4/30/2017.
@@ -73,7 +74,7 @@ public class LoginActivity extends AppCompatActivity{
                 if (!task.isSuccessful()) { //when failed
                     Toast.makeText(LoginActivity.this, "SignIn--Authentication failed.",Toast.LENGTH_LONG).show();
                 } else {
-                    //return to MainActivity is login works
+                    //return to MainActivity if login works
                     finish();
                 }
             }
@@ -88,7 +89,9 @@ public class LoginActivity extends AppCompatActivity{
                 if (!task.isSuccessful()) { //when failed
                     Toast.makeText(LoginActivity.this, "createAccount--Authentication failed.",Toast.LENGTH_LONG).show();
                 } else {
-                    //return to MainActivity is login works
+                    //return to MainActivity if login works
+                    FirebaseUser user = mAuth.getCurrentUser();
+
                     finish();
                 }
             }

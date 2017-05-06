@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -49,6 +50,9 @@ public class AddActivity extends AppCompatActivity {
                 Intent mainActIntent = new Intent(view.getContext(), MainActivity.class);
                 finish();
                 startActivity(mainActIntent);
+
+                Toast.makeText(getApplicationContext(), "Bill added, click on bill and hit 'Details' button to view all information.", Toast.LENGTH_LONG)
+                        .show();
             }
 
         });
