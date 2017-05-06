@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         //check if user is signed in and update
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+
         mAuth.addAuthStateListener(mAuthListener); // update the listener on the users place
     }
 
